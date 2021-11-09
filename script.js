@@ -17,22 +17,63 @@ function createGrid(){
     }
 }
 
+//rainbow ranodm selection
+function rainbowColor(){
+    let random = Math.floor(Math.random() * 6);
+
+    console.log(random);
+
+    let color = (random === 0) ? 'blue':
+                (random === 1) ? 'red':
+                (random === 2) ? 'green':
+                (random === 3) ? 'indigo':
+                (random === 4) ? 'yellow':
+                (random === 5) ? 'orange':
+                'black';
+    console.log(color);                
+    return color;    
+}
+
 //change color function of cells
 function changeColor(e){
-    
-    e.classList.add('colored');    
+    if(rainbow){
+        e.style.backgroundColor = rainbowColor();
+    }   
+    else{
+        e.style.backgroundColor = 'black';
+    }
+}
 
+
+function buttonPress(){
+    console.log(this.id);
+    switch(this.id){
+        case 'black':
+            rainbow = false;
+            break;
+        case 'rainbow':
+            rainbow = true;
+            break;
+        case 'clear':
+            break;
+        case 'size':
+            break;
+    }
+    console.log(rainbow);
 }
 
 const container = document.querySelector('#screen');
+const buttons = document.querySelectorAll('button');
+let rainbow = false;
 
 createGrid();
 
 //create node list of <div> with class square
 const cells = document.querySelectorAll('.cell');
-console.log(cells);
 
 //create eventlistener for mouse over on each cell to change color
 cells.forEach(cells => cells.addEventListener('mouseenter', () => {
     changeColor(cells)}));
 
+//creat eventlistener for button presses    
+buttons.forEach(buttons => buttons.addEventListener('click', buttonPress));
