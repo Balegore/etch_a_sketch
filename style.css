@@ -16,6 +16,7 @@ body{
     background-color: #d41920;
     width: 800px;
     align-items: center;
+    margin-top: 50px;
     border: 5px black solid;
     border-radius: 10px;
 }
@@ -91,9 +92,4 @@ p{
     background-color: white;
     transition-duration: 250ms;
     
-}
-
-.colored{
-    background-color: black;
-
 }

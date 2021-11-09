@@ -1,13 +1,19 @@
-//creates grid of <div> with class cell
+//add event listeners to cells
 
-function createGrid(){
-    let ammountRows = 10;
-    let ammountSquare = 10;
+function addCellEvents(){
+    cells = document.querySelectorAll('.cell');
+    cells.forEach(cells => cells.addEventListener('mouseenter', () => {
+        changeColor(cells)}));
+}
 
-    for(let i = ammountRows; i>0; i--){             
+//creates grid of <div> with class cell and delete olf cells
+function createGrid(gridSize){
+    
+    container.innerHTML = ''; 
+    for(let i = gridSize; i>0; i--){             
         const row = document.createElement('div');
         
-        for(let n = ammountSquare; n > 0; n--){
+        for(let n = gridSize; n > 0; n--){
             let square = document.createElement('div');
             square.classList.add('cell');
             row.appendChild(square);
@@ -15,9 +21,10 @@ function createGrid(){
         container.appendChild(row);
         row.classList.add('row');
     }
+    addCellEvents();
 }
 
-//rainbow ranodm selection
+//rainbow random selection
 function rainbowColor(){
     let random = Math.floor(Math.random() * 6);
 
@@ -44,6 +51,19 @@ function changeColor(e){
     }
 }
 
+function clearCells(){
+    cells.forEach(cells => { 
+        cells.style.backgroundColor = "white"});
+}
+
+function getSize(){
+    let gridSize = prompt("Enter a grid size between 1 and 100");
+        while(gridSize < 1 && gridSize > 100){
+            gridSize = prompt("Please enter a number between 1 and 100")
+        }
+    createGrid(gridSize);
+}
+
 
 function buttonPress(){
     console.log(this.id);
@@ -55,8 +75,10 @@ function buttonPress(){
             rainbow = true;
             break;
         case 'clear':
+            clearCells();
             break;
         case 'size':
+            getSize();
             break;
     }
     console.log(rainbow);
@@ -64,16 +86,10 @@ function buttonPress(){
 
 const container = document.querySelector('#screen');
 const buttons = document.querySelectorAll('button');
+let cells;
 let rainbow = false;
 
-createGrid();
-
-//create node list of <div> with class square
-const cells = document.querySelectorAll('.cell');
-
-//create eventlistener for mouse over on each cell to change color
-cells.forEach(cells => cells.addEventListener('mouseenter', () => {
-    changeColor(cells)}));
+createGrid(16);
 
 //creat eventlistener for button presses    
 buttons.forEach(buttons => buttons.addEventListener('click', buttonPress));
